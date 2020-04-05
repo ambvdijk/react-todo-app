@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { TodoList } from './TodoList';
 import { Todo } from './Todo';
@@ -17,7 +16,7 @@ function App() {
         Todo App
       </header>
       <main>
-        <TodoList todos={todos} />
+        <TodoList todos={todos} onTodoClick={console.log} />
       </main>
     </section>
   );
