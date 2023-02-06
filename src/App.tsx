@@ -1,18 +1,21 @@
-import React from 'react';
-import './App.css';
-import { TodoList } from './components/TodoList';
-import { TodoFormComponent } from './components/TodoForm';
+import React from "react";
+import "./App.css";
+import { ToDoList } from "./components/ToDoList";
+import Button from "@mui/material/Button";
+import { useTheme } from "@mui/material/styles";
+import { Header } from "./components";
+import { useSelector } from "react-redux";
+import { Selectors } from "./store";
 
-export const App = () => {
+export function App() {
+  const theme = useTheme();
+  const todos = useSelector(Selectors.selectTodos);
   return (
     <section className="App">
-      <header className="App-header">
-        Todo App
-      </header>
-      <main>
-        <TodoList />
-        <TodoFormComponent />
-      </main>
+      {theme.palette.mode}
+      <Header></Header>
+      <ToDoList todos={todos}></ToDoList>
+      <Button variant="contained">Hello World</Button>
     </section>
   );
 }

@@ -1,46 +1,16 @@
-import React from "react"
-import { Todo } from "../domain/Todo"
-import { TodoItem } from "./TodoItem"
-import { connect } from "react-redux"
-import { getTodosSelector } from "../redux/selectors"
-import { AppState } from "../redux/reducers"
+import React from "react";
+import { Features } from "../store";
+import { ToDoListItem } from "./ToDoListItem";
 
-export interface TodoListProps {
-  todos: Todo[]
-}
+export function ToDoList({ todos }: { todos: Features.Todo.Todo[] }): JSX.Element {
+  const toDoListItems = todos.map((todo) => (
+    <ToDoListItem key={todo.id} todo={todo}></ToDoListItem>
+  ));
 
-const onTodoClick = () => {
-  console.log('Todo clicked!');
-};
-
-const mapStateToProps = (state: AppState) => ({
-  todos: state.todos
-});
-
-const TodoListComponent = ({ todos }: TodoListProps) => {
-  const todoItems = todos.map(todo => (<TodoItem key={todo.id} todo={todo} onClick={onTodoClick} />))
   return (
-    <ul>
-      {todoItems}
-    </ul>
-  )
+    <section id="todo-list">
+      <h1>ToDo List</h1>
+      <ul className="todo-list">{toDoListItems}</ul>
+    </section>
+  );
 }
-
-const connector = connect(mapStateToProps)
-
-// const mapStateToProps = state => {
-//   const { visibilityFilter } = state;
-//   const todos = getTodosByVisibilityFilter(state, visibilityFilter);
-//   return { todos };
-//   //   const allTodos = getTodos(state);
-//   //   return {
-//   //     todos:
-//   //       visibilityFilter === VISIBILITY_FILTERS.ALL
-//   //         ? allTodos
-//   //         : visibilityFilter === VISIBILITY_FILTERS.COMPLETED
-//   //           ? allTodos.filter(todo => todo.completed)
-//   //           : allTodos.filter(todo => !todo.completed)
-//   //   };
-// };
-
-export const TodoList = connector(TodoListComponent);
